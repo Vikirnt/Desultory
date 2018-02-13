@@ -1,0 +1,27 @@
+
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div>
+
+  <div class="card">
+    <div class="card-block">
+
+      <h4 class="card-title">
+        {{ post.title }}
+        <a class="btn btn-default" href="#"><button type="button" class="btn btn-primary">Edit</button></a>
+      </h4>
+
+      <p class="card-text"> {{ post.text|linebreaksbr }} </p>
+
+      <div>
+        <a href="#" class="btn btn-like btn-primary">Like</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

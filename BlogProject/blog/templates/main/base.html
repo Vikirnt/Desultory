@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title> Welcome to Vikrant's Blog!</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+          integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+          crossorigin="anonymous" />
+
+      <style>
+        nav li a {
+          color: orange;
+        }
+        nav li a:hover {
+          color: white;
+        }
+        body {
+          background-color: #ECECEC;
+        }
+        .card {
+          margin: 20px;
+          padding: 20px;
+        }
+        .btn {
+          float: right;
+        }
+        .btn-like {
+          background: teal;
+        }
+        .btn a {
+          text-decoration: none;
+          color: inherit;
+        }
+      </style>
+  </head>
+
+  <body>
+
+    <nav class="navbar bg-dark sticky-top style="background-color: #e3f2fd;"">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link bg-secondary">Vikrant Blog</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link">Frontpage</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://vixrant.github.io/" class="nav-link">Main Site</a>
+        </li>
+      </ul>
+      <button class="btn bg-warning"><a href="/add/">Add Post</a></button>
+
+      </button>
+    </nav>
+
+    {% block content %}
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title"> {{ t.title }} </h4>
+        <p class="card-text"> {{ t.text|linebreaksbr }} </p>
+        <a href="#" class="btn btn-primary">Comments</a>
+      </div>
+    </div>
+    {% endblock %}
+
+
+
+  </body>
+
+</html>
