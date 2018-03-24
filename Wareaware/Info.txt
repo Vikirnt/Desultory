@@ -1,0 +1,9 @@
+Welcome!
+
+To run this program,
+
+	1. PLEASE USE JRE and JDK 1.7 or above.
+
+	2. Main.main ();
+
+	3. Please don't screw my program up.

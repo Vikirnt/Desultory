@@ -49,23 +49,26 @@ int start () {
 
 // Check end-game conditions.
 int check () {
-	int i, j;
+	int i,j, diaL = grid [0][0], diaR = grid [0][2];
+
         for (i = 0; i < 3; i++) {
-        	// Check rows.
-        	if (grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2])
-                	return grid[i][0];
-                else
-                // Check columns.
-                if (grid[0][i] == grid[1][i] && grid[1][i] == grid[2][i])
-                	return grid[0][i];
+            // Check rows.
+            if (grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2])
+                return grid[i][0];
+            else
+            // Check columns.
+            if (grid[0][i] == grid[1][i] && grid[1][i] == grid[2][i])
+                return grid[0][i];
+            // Check left-right diagonal.
+            if (diaL != BLANK && diaL != grid [i][i])
+                diaL = BLANK;
+            // Check right-left diagonal,
+            if (diaR != BLANK && diaR != grid [i][2 - i])
+                diaR = BLANK;
         }
-       	// Check diagonals.
-        if (grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2])
-        	return grid[0][0];
-        else
-	if (grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0])
-        	return grid[2][0];
-        // Check for blanks.
+        if (diaL != BLANK) return diaL;
+        if (diaR != BLANK) return diaR;
+
         for (i = 0; i < 3; i++)
         	for (j = 0; j < 3; j++)
                 	if (grid[i][j] == BLANK)
@@ -77,7 +80,7 @@ int check () {
 
 // Check if the choords are valid.
 int checkcoords (int x, int y) {
-	if (x == -1 || y == -1)
+	if (x == -2 || y == -2)
         	return 0;
 	else if (grid [x][y] != BLANK)
         	return 1;
@@ -89,7 +92,7 @@ struct pos input (int player) {
         int x, y;
         struct pos coords;
         do {
-		printf ("PLAYER %c -> (x, y)", player);
+		printf ("PLAYER %c -> (x, y) = ", player);
         	scanf  ("%d %d", &x, &y);
         } while (checkcoords (x-1, y-1));
         coords.x = x-1;
