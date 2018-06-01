@@ -20,7 +20,7 @@ class MatchMeta:
     """ MatchMeta object has 2 properties.
         1. data: Meta data about the match.
         2. innings: Data about each inning.
-        Each match occupies 3 rows.
+        Each match occupies 3 rows in the db.
     """
     def __init__ (self, body):
         self.data = {} # Empty dictionary.
@@ -30,13 +30,13 @@ class MatchMeta:
 
     def print (self):
         for i in self.get_innings ():
-            print (str (i))
+            print (i)
 
     def get_innings (self):
         for i in self.innings:
             row = [] # Empty row
-            row.append (self.data [x] for x in meta_headers)
-            row.append (i [x] for x in card_headers)
+            row += [self.data [x] for x in meta_headers]
+            row += [i [x] for x in card_headers]
             yield row
         
 
@@ -45,39 +45,44 @@ def scrap_cards (match):
 
     scorecards = bs (requests.get (match.data ['link']).text, 'html.parser').find_all ('article', {'class': 'scorecard'})
     for card in scorecards:
-        inn = {} # Empty dictionary.
+        try:
+            inn = {} # Empty dictionary.
 
-        # Who's Inning? Team and number
-        inn ['TeamName'], inn ['inns'] = re.findall (r'(\w+\s?\w+?) (\d)\w+ .*', card.h2.text) [0]
+            # Who's Inning? Team and number
+            inn ['TeamName'], inn ['inns'] = re.findall (r'(\w+\s?\w+?) (\d)\w+ .*', card.h2.text) [0]
 
-        # Scrap batsmen
-        batsmen = card.find_all ('div', {'class': 'wrap batsmen'})
-        sixes = []
-        fours = []
-        for b in batsmen:
-            r = b.find_all ('div', {'class': 'cell runs'})
-            fours += [r [3].text]
-            sixes += [r [4].text]
-        # Find sums of fours and sixes
-        inn ['fours'] = reduce (lambda x, y: x + y, map (lambda x: int (x), fours))
-        inn ['sixes'] = reduce (lambda x, y: x + y, map (lambda x: int (x), sixes))
-        
-        # Find extras
-        inn ['xtras_receive'] = int (re.findall (r'(\d+)', card.find ('div', {'class': 'wrap extras'}).find_all ('div') [1].text) [0])
+            # Scrap batsmen
+            batsmen = card.find_all ('div', {'class': 'wrap batsmen'})
+            sixes = []
+            fours = []
+            for b in batsmen:
+                r = b.find_all ('div', {'class': 'cell runs'})
+                i = 3 if len (r) == 6 else 2
+                fours += [r [i].text]
+                sixes += [r [i + 1].text]
+            # Find sums of fours and sixes
+            inn ['fours'] = reduce (lambda x, y: x + y, map (lambda x: int (x), fours))
+            inn ['sixes'] = reduce (lambda x, y: x + y, map (lambda x: int (x), sixes))
+            
+            # Find extras
+            inn ['xtras_receive'] = int (re.findall (r'(\d+)', card.find ('div', {'class': 'wrap extras'}).find_all ('div') [1].text) [0])
 
-        # Find total
-        totaldiv = card.find ('div', {'class': 'wrap total'}).find_all ('div') [1].text
-        inn ['total'] = re.findall (r'(\d+)', totaldiv) [0]
-        # Find wickets lost
-        if len (re.findall (r'all out', totaldiv)):
-            inn ['wkts_lost'] = 10
-        else:
-            inn ['wkts_lost'] = int (re.findall (r'(\d+)', totaldiv) [1])
-        
-        # Find overs bowled
-        overs = re.findall (r'(\d*.?\d*?) Overs', totaldiv) [0]
+            # Find total
+            totaldiv = card.find ('div', {'class': 'wrap total'}).find_all ('div') [1].text
+            inn ['total'] = re.findall (r'(\d+)', totaldiv) [0]
+            # Find wickets lost
+            if len (re.findall (r'all out', totaldiv)):
+                inn ['wkts_lost'] = 10
+            else:
+                inn ['wkts_lost'] = int (re.findall (r'(\d+)', totaldiv) [1])
+            
+            # Find overs bowled
+            overs = re.findall (r'(\d*.?\d*?) Overs', totaldiv) [0]
 
-        match.innings += [inn]
+            match.innings += [inn]
+        except ValueError:
+            with open ('errors.txt', 'a') as f:
+                f.write (match.data)
     # Return the match again
     return match
 
@@ -119,4 +124,3 @@ with open ('x.csv', 'w') as f:
             rows = scrap_table (target (year))
             for row in rows:
                 writer.writerow (row)
-
