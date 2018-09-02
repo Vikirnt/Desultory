@@ -65,8 +65,11 @@ def scrap_cards (match):
             inn ['sixes'] = reduce (lambda x, y: x + y, map (lambda x: int (x), sixes))
             
             # Find extras
-            inn ['xtras_receive'] = int (re.findall (r'(\d+)', card.find ('div', {'class': 'wrap extras'}).find_all ('div') [1].text) [0])
-
+            try:
+                inn ['xtras_receive'] = int (re.findall (r'(\d+)', card.find ('div', {'class': 'wrap extras'}).find_all ('div') [1].text) [0])
+            catch AttributeError:
+                inn ['xtras_receive'] = 0
+            
             # Find total
             totaldiv = card.find ('div', {'class': 'wrap total'}).find_all ('div') [1].text
             inn ['total'] = re.findall (r'(\d+)', totaldiv) [0]
@@ -120,7 +123,7 @@ with open ('x.csv', 'w') as f:
         writer = csv.writer (f)
         writer.writerow (meta_headers + card_headers)
         
-        for year in range (2005, 2006, 1): # 2005 - 2018
+        for year in range (2005, 2019, 1): # 2005 - 2018
             rows = scrap_table (target (year))
             for row in rows:
                 writer.writerow (row)
