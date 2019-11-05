@@ -2,6 +2,10 @@ set ns [new Simulator]
 set nf [open sw.nam w]
 $ns namtrace-all $nf
 
+# for monitoring window size
+set namf [open sw.tr w]
+$ns trace-all $namf
+
 proc finish {} {
 	global ns nf
 	$ns flush-trace
@@ -24,6 +28,8 @@ $ns duplex-link-op $n0 $n1 orient right
 $ns queue-limit $n0 $n1 10
 
 # TCP
+Agent/TCP set nam_tracevar_ true
+
 set tcp [new Agent/TCP]
 $tcp set packetSize_ 500
 $tcp set windowInit_ 1
@@ -32,6 +38,11 @@ $ns attach-agent $n0 $tcp
 
 set sink [new Agent/TCPSink]
 $ns attach-agent $n1 $sink
+
+# Monitoring
+$ns add-agent-trace $tcp tcp
+$ns monitor-agent-trace $tcp
+$tcp tracevar cwnd_
 
 # Application
 set ftp [new Application/FTP]
