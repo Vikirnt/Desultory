@@ -28,13 +28,14 @@ public class Server {
                 ils[i] = Integer.parseInt(sls[i]);
             }
 
+            // If ma'am says this won't work, write bubble sort function.
             Arrays.sort(ils);
 
             for(int i : ils) {
                 this.out.writeUTF("" + i);
             }
             this.out.writeUTF("DONE");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
