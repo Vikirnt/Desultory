@@ -22,7 +22,7 @@ public class Server {
 
             // Extract packet data to String
             String l = new String(p.getData(), 0, p.getLength());
-            System.out.println(l.length());
+            System.out.println("Received " + l + " from " + address.toString() + " : " + port);
 
             // String list of numbers
             String[] sls = l.split(" ");

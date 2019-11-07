@@ -11,20 +11,23 @@ public class Client {
 
     public Client(String addr, int port) {
         try {
-            this.sock = new Socket(addr, port);
-            this.in = new DataInputStream(this.sock.getInputStream());
-            this.out = new DataOutputStream(this.sock.getOutputStream());
+            // Connect to Server socket
+            sock = new Socket(addr, port);
 
+            // Set-up data streams
+            in = new DataInputStream(sock.getInputStream());
+            out = new DataOutputStream(sock.getOutputStream());
+
+            // Take input
             System.out.println("Enter a list of numbers -> ");
-            String l = this.inpScanner.nextLine();
+            String l = inpScanner.nextLine();
 
+            // Write above input to server
             out.writeUTF(l);
-            String r = "";
-
-            while(!r.equalsIgnoreCase("DONE")) {
-                System.out.println(r);
-                r = in.readUTF();
-            }
+            
+            // Get output from server
+            String r = in.readUTF();
+            System.out.println("Received " + r);
         } catch (Exception e) {
             e.printStackTrace();
         }

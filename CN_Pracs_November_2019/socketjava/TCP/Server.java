@@ -10,20 +10,28 @@ public class Server {
 
     public Server(int port) {
         try {
-            this.server = new ServerSocket(port);
+            // Make server
+            server = new ServerSocket(port);
             System.out.printf("Server started on port %d! \n", port);
 
-            this.sock = server.accept();
+            // Accept a connection
+            sock = server.accept();
             System.out.println("Got a connection! ");
 
-            this.in = new DataInputStream(this.sock.getInputStream());
-            this.out = new DataOutputStream(this.sock.getOutputStream());
+            // Set-up data streams
+            in = new DataInputStream(sock.getInputStream());
+            out = new DataOutputStream(sock.getOutputStream());
 
+            // Read data from client
             String l = in.readUTF();
             System.out.println(l);
 
+            // String array
             String[] sls = l.split(" ");
+            // Integer array
             int[] ils = new int[sls.length];
+
+            // Convert String array to Integer array
             for(int i = 0; i < sls.length; i++) {
                 ils[i] = Integer.parseInt(sls[i]);
             }
@@ -31,10 +39,15 @@ public class Server {
             // If ma'am says this won't work, write bubble sort function.
             Arrays.sort(ils);
 
-            for(int i : ils) {
-                this.out.writeUTF("" + i);
+            // Convert Integer array to String array
+            for(int i = 0; i < sls.length; i++) {
+                sls[i] = Integer.toString(ils[i]);
             }
-            this.out.writeUTF("DONE");
+
+            // Join String array into one String
+            String s = String.join(" ", sls);
+            // Send data to client
+            out.writeUTF(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
