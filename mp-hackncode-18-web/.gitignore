@@ -1,0 +1,13 @@
+# Don't wanna throw out my data
+traintracks/db.sqlite3hero
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Migrations
+
+**/migrations/

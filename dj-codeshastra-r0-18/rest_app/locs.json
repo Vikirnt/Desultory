@@ -1,0 +1,128 @@
+{
+	"tolls":[
+		
+		{
+			"name": "Vitawa Check Post(Octroi Naka): ",
+			"lat": 19.1858558,
+			"lon": 72.9916431,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+
+		{
+			"name":"Kasheli Toll Naka: ",
+			"lat": 19.2344227,
+			"lon": 73.0062673,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+
+		{
+
+			"name": "IRB Toll Plaza(Kirvali village): ",
+			"lat": 19.0962738,
+			"lon": 73.0728704,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+
+		{
+			"name":"Vashi Toll Plaza: ",
+			"lat": 19.0433857,
+			"lon": 72.8224367,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+		{
+			"name": "Toll Plaza Thane(Kalwa): ",
+			"lat": 19.2114212,
+			"lon": 73.0074918,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+
+		{
+			"name": "Mumbai-Pune Expressway(Khalapur Toll Gate): ",
+			"lat": 18.8010854,
+			"lon": 73.2831967,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+
+		{
+			"name":"Thane Mulund Check Naka: ",
+			"lat": 19.1691203,
+			"lon": 72.9646032,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+
+		{
+			"name":"Dahisar Toll Plaza: ",
+			"lat": 19.2570395,
+			"lon": 72.8690587,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+
+		{
+			"name":"Airoli Toll Booth: ",
+			"lat": 19.1522895,
+			"lon": 72.9632278,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+
+		{
+			"name":"Kawdipath Toll Plaza(Solapur-Pune highway): ",
+			"lat": 18.4928091,
+			"lon": 73.9923255,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+		},
+
+		{
+			"name":"Vashi Bridge: ",
+			"lat": 19.0637764,
+			"lon": 72.9787256,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+
+		},
+
+
+		{
+			"name": "DJ Sanghvi Toll PLaza: ",
+			"lat": 19.1071154,
+			"lon": 72.8349707,
+			"heavy_4wheeler": 70.00,
+			"light_4wheeler": 50.00,
+			"bike_price": 30.00
+
+
+		}
+
+	]
+}
